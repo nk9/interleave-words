@@ -73,45 +73,64 @@ button {
 <div id="out2" class="output"></div>
 
 <script>
+<script>
+const inputA = document.getElementById("a");
+const inputB = document.getElementById("b");
+
+function words(text) {
+    return text
+        .trim()
+        .split(/\s+/)
+        .filter(Boolean);
+}
+
+function validate() {
+    const a = words(inputA.value);
+    const b = words(inputB.value);
+
+    const valid = a.length === b.length && a.length > 0;
+
+    inputA.style.border =
+        valid ? "3px solid green" : "3px solid red";
+
+    inputB.style.border =
+        valid ? "3px solid green" : "3px solid red";
+
+    return { a, b, valid };
+}
+
 function interleave() {
-    const a = document.getElementById("a").value
-        .trim()
-        .split(/\s+/)
-        .filter(Boolean);
+    const { a, b, valid } = validate();
 
-    const b = document.getElementById("b").value
-        .trim()
-        .split(/\s+/)
-        .filter(Boolean);
-
-    const error = document.getElementById("error");
-    error.textContent = "";
-
-    if (a.length !== b.length) {
-        error.textContent =
-            `Word counts must match. A=${a.length}, B=${b.length}`;
+    if (!valid) {
         return;
     }
 
     let out1 = [];
     let out2 = [];
 
-for (let i = 0; i < a.length; i++) {
-    if (i % 2 === 0) {
-        out1.push(a[i]);
-        out2.push(b[i]);
-    } else {
-        out1.push(b[i]);
-        out2.push(a[i]);
+    for (let i = 0; i < a.length; i++) {
+        if (i % 2 === 0) {
+            out1.push(a[i]);
+            out2.push(b[i]);
+        } else {
+            out1.push(b[i]);
+            out2.push(a[i]);
+        }
     }
-}
 
     document.getElementById("out1").textContent =
-        out1.join(" ");
+        out1.join(" ").trim();
 
     document.getElementById("out2").textContent =
-        out2.join(" ");
+        out2.join(" ").trim();
 }
+
+inputA.addEventListener("input", validate);
+inputB.addEventListener("input", validate);
+
+validate();
+</script>
 </script>
 
 </body>
