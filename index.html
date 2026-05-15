@@ -96,15 +96,15 @@ function interleave() {
     let out1 = [];
     let out2 = [];
 
-    for (let i = 0; i < a.length; i++) {
-        if (i % 2 === 0) {
-            out1.push(a[i]);
-            out1.push(b[i]);
-        } else {
-            out2.push(a[i]);
-            out2.push(b[i]);
-        }
+for (let i = 0; i < a.length; i++) {
+    if (i % 2 === 0) {
+        out1.push(a[i]);
+        out2.push(b[i]);
+    } else {
+        out1.push(b[i]);
+        out2.push(a[i]);
     }
+}
 
     document.getElementById("out1").textContent =
         out1.join(" ");
