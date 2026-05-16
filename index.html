@@ -56,10 +56,10 @@ button {
 
 <h2>Word Interleaver</h2>
 
-<p>Input A</p>
+<p>Input A <span id="count-a">(0 words)</span></p>
 <textarea id="a" placeholder="red blue green"></textarea>
 
-<p>Input B</p>
+<p>Input B <span id="count-b">(0 words)</span></p>
 <textarea id="b" placeholder="one two three"></textarea>
 
 <button onclick="interleave()">Interleave</button>
@@ -86,14 +86,14 @@ function words(text) {
 function validate() {
     const a = words(inputA.value);
     const b = words(inputB.value);
-
     const valid = a.length === b.length && a.length > 0;
 
-    inputA.style.border =
-        valid ? "3px solid green" : "3px solid red";
+    inputA.style.border = valid ? "3px solid green" : "3px solid red";
+    inputB.style.border = valid ? "3px solid green" : "3px solid red";
 
-    inputB.style.border =
-        valid ? "3px solid green" : "3px solid red";
+    const label = n => `(${n} word${n === 1 ? "" : "s"})`;
+    document.getElementById("count-a").textContent = label(a.length);
+    document.getElementById("count-b").textContent = label(b.length);
 
     return { a, b, valid };
 }
